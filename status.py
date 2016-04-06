@@ -12,4 +12,4 @@ print "%s" % status
 #if not status: 
 f = open("status.txt", "a")
 f.write( status + " \n\r")
-
+f.close()
