@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 f = open("status.txt", "r")
-last20Lines = f.readlines()[-20:]
+last20Lines = f.readlines()[-21:]
 f.close()
 
 print "Content-type: text/html\n\n"
