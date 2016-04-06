@@ -8,8 +8,8 @@ status = form.getvalue('status')
 
 print "Content-type: text/html\n\n"
 print "%s" % status
- 
-#if not status: 
-f = open("status.txt", "a")
-f.write( status + " \n\r")
 
+if status: 
+	f = open("status.txt", "a")
+	f.write( status + " \n\r")
+	f.close()
