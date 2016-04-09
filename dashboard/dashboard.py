@@ -5,22 +5,9 @@ f = open("status.txt", "r")
 lines = f.readlines()
 f.close()
 
-lines.reverse()
-
 f = open("friends.txt", "r")
 everyone = f.readlines()
 f.close()
-
-# for line in everyone:
-# 	#look for user in first name
-# 	line.spilt(' ')
-
-# 	for name in line:
-# 		print name.partition(' ')[0]
-# 		#if name == 
-
-#for line in lines:
-
 
 print "Content-type: text/html\n\n"
 print "<html>"
@@ -38,31 +25,32 @@ print"	</form>"
 # make a list
 # reverse the list
 # get the first 20 posts with friends usernames
-print everyone
+
 for line in everyone:
 	#look for user in first name
-	#print line.partition(' ')[0]
-	#print line
+	
+	line = line.replace("\r", "")
 
 	if line.partition(' ')[0] == user:
 	 	friends = line
 		friends = friends.split()
-	 	print type(friends) is list
-
+	 	
+lines.reverse()
 counter = 0
+
 for status in lines:
 
 	# check if the poster of each status is a friend
 	# add it to a list
 	# print the fist 20 elements in the list
 	
-	if counter == 20:
-		break
+	if counter == 20: break
+
+	status = status.replace("\r", "")
 
 	if status.partition(' ')[0] in friends:
-		print status
+		print status + "<br>"
 		counter = counter + 1
 
-	print "line: %s<br>" % status.partition(' ')[0]
 print "</body>"
 print "</html>"
