@@ -1,13 +1,13 @@
 #!/usr/bin/python
 
+import urllib
+
 user = 'bob'
 f = open("status.txt", "r")
 lines = f.readlines()
 f.close()
 
-f = open("friends.txt", "r")
-everyone = f.readlines()
-f.close()
+everyone = urllib.urlopen("http://www.cs.mcgill.ca/~eander40/friends.txt")
 
 print "Content-type: text/html\n\n"
 print "<html>"
