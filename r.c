@@ -18,7 +18,8 @@ int main ( int argc , char * argv )
 	// write to file
 	// open file
 	FILE * users;
-	users = fopen ( "users.txt" , "rw" );
+	FILE * toAdd; // pointer for appending
+	users = fopen ( "users.txt" , "r" ); // r for read. a for append
 	
 	char * data = "user=eander40&password=word&fullname=ERic+And";
 	char token[50]; // will contain the string from one of the 4 fields. always terminates with '\0' because of resetToken function
@@ -48,9 +49,15 @@ int main ( int argc , char * argv )
 			{
 
 			}
-			else
+			else // append to file. We can append the tokens in order because thats the order we read them in. uname|passw|fulln|jobdes
 			{
-
+				// append to file with puts?
+				printf ( "writing token : %s to file \n" , token );
+				toAdd = fopen ( "users.txt" , "a" );
+				// need to change '\0' to '\n' so fputs formats file correctly
+				token[tIndex] = '\n'; // NOTE that it was '\0' for inFile function
+				fputs ( token , toAdd ); 
+				fclose ( toAdd ); // close file we just wrote to	
 			}	
 		}
    		else if ( isToken == 0 )
