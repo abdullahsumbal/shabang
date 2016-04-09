@@ -19,20 +19,15 @@ string = """<!DOCTYPE html>
 			<form action="http://cgi.cs.mcgill.ca/~eander40/newfriends.py" method="gets">	
  """ 
 print string
-with open ( "users.txt" , "r" ) as users: # opens file, reads and prints everyother line
-	count = 1
+with open ( "users.txt" , "r" ) as users: # opens file, reads and prints four lines. We need the usernames in form to write friends.txt w/usernames 
+	count = 3 
 	for line in users:
 		count += 1
-		if count % 2 == 0:
-			if count % 4 == 0:
-				print "<input type=\"checkbox\" name=\"fullname\" value=\"" + line + "\">" + line + "<br>" # makes name in form the actual fullname
-				# need to make it so that the form submits the fullname
+		if count % 4 == 0:
+			print "<input type=\"checkbox\" name=\"fullname\" value=\"" + line + "\">" + line + "<br>" # makes name in form the actual fullname
 				# then the newfriends.py will use the contents in cgi format to 
 				# write to the friends.txt file
-			else:
-				print "<h1>user: " + line + "</h1>"
 
-	
 
 print """
 				<input type=\"submit\" value=\"addfriend\"> 
