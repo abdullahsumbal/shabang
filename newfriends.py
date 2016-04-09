@@ -9,12 +9,23 @@ print "Content-type: text/html\n\n" # line that lets the client browser know we 
 form = cgi.FieldStorage()
 
 
-fullname = form.getvalue ( 'fullname' ) # get the fullname stored in value attribute of html. html form name="fullname" has value
-print fullname
-http://cgi.cs.mcgill.ca/~yzhu399/friends.txt
+addfriend = form.getvalue ( 'fullname' ) # get the fullname stored in value attribute of html. html form name="fullname" has value
+print addfriend 
+friendList = open ( "friends.txt" , "rw" )
+
+# read friends.txt and if we find a friend in the friends we want to add delete from addfriend. No duplicates
+for friend in friendList:
+	if isinstance ( addfriend , friend ): # does the friend we are adding new friends to already have 
+		
+
+
+
+
+
+
 '''
-form now contains name="fullname" value="actualFullNameOfUser"
-parse the form and write the actualFullNameOfUser to friends.txt file
+
+parse the form and write the username to friends.txt file
 need to know the format of the form what does it look like?
 form needs to contain the fullnames of users
 then write to friends.txt
