@@ -1,8 +1,10 @@
 #!/usr/bin/python
 
-import urllib
+import urllib, os
 
 user = 'bob'
+os.system("touch status.txt")
+
 f = open("status.txt", "r")
 lines = f.readlines()
 f.close()
