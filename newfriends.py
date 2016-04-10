@@ -7,6 +7,8 @@ import fileinput
 cgitb.enable() # enables some debuggin???
 
 print "Content-type: text/html\n\n" # line that lets the client browser know we write html
+# html
+print "<!DOCTYPE html><html><body>"
 form = cgi.FieldStorage()
 
 # need the currentUser
@@ -30,20 +32,26 @@ friendList = open ( "friends.txt" , "r+" )
 # we create a string we will insert ie toAdd
 newFriend = ""
 
+# addfriend can be a list and may contain '\r\n' at the end of items 
+# loop accounts for this
+print "<center>"
 for friend in addfriend:
 	if friend.endswith ( "\r\n" ):
 		if friend != currentUser:
 			friend = friend.strip ( "\r\n" )
+			print "<h2>Adding " + friend + "</h2>"
 			toAdd += friend
 			toAdd += " "
 	elif friend.endswith ( "" ):
-		print friend
+		print "<h2>Adding " + friend + "</h2>"
 		toAdd += friend
 
-toAdd += " "
-print "This is toAdd : " + toAdd + "<br>"
+toAdd += " \n" # add \n because we want to want to correctly write to file
+print "<h1> to your friends list </h1>"
+print "<a href=\"https://cgi.cs.mcgill.ca/~yzhu399/dashboard.py\">To Dashboard</a>" # need \" to interpret " literally
 
-
+print "</center>"
+print "</body></html>"
 # loops through friends.txt
 # inserts toAdd which is of format username friend1 friend2 etc into friends.txt file
 for line in fileinput.input ( "friends.txt" , inplace = 1 ):

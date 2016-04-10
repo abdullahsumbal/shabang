@@ -20,6 +20,8 @@ int main ( int argc , char * argv )
 	// open file
 	FILE * users;
 	FILE * toAdd; // pointer for appending
+	FILE * friends;
+	int firstToken = 0; // flag to let us know this is the username we need to add to the friends.txt file
 	users = fopen ( "../users.txt" , "r" ); // r for read. a for append. PARENT DIR
 	
 
@@ -64,6 +66,25 @@ int main ( int argc , char * argv )
 				token[tIndex] = '\n'; // NOTE that it was '\0' for inFile function
 				fputs ( token , toAdd ); // WHY DID THIS WORK?? I tried it on a hunch but don't totally understand
 				fclose ( toAdd ); // close file we just wrote to	
+				
+				// we need to update friends.txt with the new username
+				// there is a flag that lests us know we are at first token from the form
+				firstToken ++; 
+
+				if ( firstToken == 1 )
+				{
+					// also we don't want to add duplicates to friends.txt if the user registers twice
+					friends = fopen ( "../friends.txt" , "a" ); // parent dir. a for appending
+					if ( inFile ( token , friends ) != 0 ) // username not in friends.txt
+					{
+						token[tIndex] = ' '; // we need to add the token to friends.txt with space so dashboard.py can display
+									// status correctly
+						fputs ( token , friends ); // appends the token to the end of friends.txt
+					}
+					fclose ( friends ); // close friends.txt
+
+				}
+				
 			}	
 		}
    		else if ( isToken == 0 )

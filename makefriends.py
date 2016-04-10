@@ -22,9 +22,11 @@ with open ( "users.txt" , "r" ) as users: # opens file, reads and prints four li
 	for line in users:
 		count += 1
 		if count % 4 == 0:
-			print "<input type=\"checkbox\" name=\"fullname\" value=\"" + line + "\">" + line + "<br>" # makes name in form the actual fullname
+			print "<input type=\"checkbox\" name=\"fullname\" value=\"" + line + "\">" + line + "" #"<br>" # makes name in form the actual fullname
 				# then the newfriends.py will use the contents in cgi format to 
 				# write to the friends.txt file
+		elif count % 2 == 0: 
+			print "<h8> : " + line + " </h8> <br>"
 
 
 print """
