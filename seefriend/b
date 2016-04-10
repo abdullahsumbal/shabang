@@ -1,0 +1,3 @@
+gcc -o seefriend.cgi seefriend.c parse.c
+gcc -o friendpage.cgi friendpage.c parse.c
+chmod 755 *
