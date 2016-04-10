@@ -1,36 +1,40 @@
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 
 int inFile ( char * , FILE * );
-void resetToken ( char * , int ); 
-int main ( int argc , char * argv )
+void resetToken ( char * , int );
+int main(int argc, char *argv[])
 {
-	// let browser know we will write html
-	printf ( "Content-Type: text/html\n\n" );
-	
-//	Gets the form data from the shell var QUERY_STRING 
-	char * data = getenv ( "QUERY_STRING" );
 
+   
+	printf("Content-Type: text/html\n\n");
+	char *data = getenv("QUERY_STRING");
+	//printf("%s", data);
 
-	
 	// so just use one string and check it against the file users.txt
 	// loop through form and check that current string ie token is not present in the file
 
 	// write to file
 	// open file
 	FILE * users;
-	FILE * toAdd; // pointer for appending
-	FILE * friends;
-	int firstToken = 0; // flag to let us know this is the username we need to add to the friends.txt file
 	users = fopen ( "../users.txt" , "r" ); // r for read. a for append. PARENT DIR
-	
+	if ( users == NULL )
+	{
+		printf ( "FILE NOT FOUND" );
+		 return 0;	
+	}
 
 	// need length of string to know howlong to loop for
 	int length = strlen ( data );
-	char token[50]; // will contain the string from one of the 4 fields. always terminates with '\0' because of resetToken function
+	char token[50]; // will contain the string from password field or uname field. always terminates with '\0' because of resetToken function
 	resetToken ( token , 50 );
-
+	// online will store the username of the current userj
+	char online [50];
+	resetToken ( online , 50 );
+	// url of dash
+	char * dashUrl =  "https://cgi.cs.mcgill.ca/~yzhu399/dashboard.py"; 
 	int i = 0; // counter for index in while
+	int validCred = 0; // flag to determine if user entered valid username and password
 	int isToken = 1; // flag for a token
 	int tIndex = 0; // counter for index in token
 	while ( i <= ( length + 1 )) // stops at end of string +1 because we need a final loop to check the last token. +1 includes the '\0'
@@ -46,50 +50,49 @@ int main ( int argc , char * argv )
 			token[tIndex] = '\0'; // terminate token
 			// Now we check if the token is in the file
 			// if in file
-			if ( inFile ( token , users ) == 0 ) 		
+			if ( inFile ( token , users ) == 0 ) 	// Valid username or password	
 			{
-				//display error
-				FILE * registrationError = fopen ( "../registerError.html" , "r" ); // html is in parent dir!!!
-				char c = getc ( registrationError );
-				while ( c != EOF )
-				{
-					putchar ( c ); // write each char from file to client browser
-					c = fgetc ( registrationError ); // get the next character
+				validCred ++; // we found a valid username or password
+				//display success
+				// redirect them to dashboard
+				// write to currentUser.txt
+				printf ( " token is : %s \n" , token );
+				printf ( " and is in file users.txt\n" );	
+				if ( validCred == 2 )
+				{	
+					FILE * currentUser = fopen ( "../currentUser.txt" , "w" );
+					fprintf ( currentUser , online );
+					printf ( "<h3><a href=\"%s\">MyDashboard</a></h3>" , dashUrl );
+					return 0; // successful login
 				}
-				return 0; // break program
+				else if ( validCred == 1 ) // store the username in online
+				{
+					strcpy ( online , token );
+				}
 			}
-			else // append to file. We can append the tokens in order because thats the order we read them in. uname|passw|fulln|jobdes
+			else // user entered invalid credentials
 			{
-				// append to file with puts?
-				toAdd = fopen ( "../users.txt" , "a" ); // PARENT DIR
-				// need to change '\0' to '\n' so fputs formats file correctly
-				token[tIndex] = '\n'; // NOTE that it was '\0' for inFile function
-				fputs ( token , toAdd ); // WHY DID THIS WORK?? I tried it on a hunch but don't totally understand
-				fclose ( toAdd ); // close file we just wrote to	
-				
-				// we need to update friends.txt with the new username
-				// there is a flag that lests us know we are at first token from the form
-				firstToken ++; 
-
-				if ( firstToken == 1 )
+				// display error
+				printf ( " invalid " );				
+				FILE * errorLogin; 
+				errorLogin = fopen ( "../loginError.html" , "r" ); //pointer to login html page
+				if ( errorLogin == NULL )
 				{
-					// also we don't want to add duplicates to friends.txt if the user registers twice
-					friends = fopen ( "../friends.txt" , "a" ); // parent dir. a for appending
-					if ( inFile ( token , friends ) != 0 ) // username not in friends.txt
-					{
-						token[tIndex] = ' '; // we need to add the token to friends.txt with space so dashboard.py can display
-									// status correctly
-						fputs ( token , friends ); // appends the token to the end of friends.txt
-					}
-					fclose ( friends ); // close friends.txt
-
+					printf ( "<h1>Error</h1>");
+					return;
 				}
-				
+				char c = fgetc ( errorLogin ); // get char from html page
+				while ( c != EOF ) // print error page to user
+				{
+					putchar ( c );
+					c = fgetc ( errorLogin );
+				}
+				return 1;
 			}	
 		}
    		else if ( isToken == 0 )
 		{
-			token[tIndex] = data[i];
+			token[tIndex] = data[i]; // begin to read into token cause we point to first char of user entry 
 			tIndex ++; // fill next position
 		} 
 		else // reset token so that we always write a string terminating '\0'
@@ -99,18 +102,7 @@ int main ( int argc , char * argv )
 		i ++; // index to loop through data
 	}	
 
-	// if we make it through the above while that means we appended to the users.txt file
-	// now we display the success html page	
-	FILE * registrationSuccess;
-	registrationSuccess = fopen ( "../registerSuccess.html" , "r" ); // html file is above dir where cgi runs......!!!
-	if ( registrationSuccess == NULL )
-		printf ( "<h1>ERROR</h1>" );
-	int c = fgetc ( registrationSuccess );
-	while ( c != EOF )
-	{
-		printf ( "%c" , c ); // write each char from file to client browser
-		c = fgetc ( registrationSuccess ); // get the next character
-	}
+	//
 	return 0;
 }
 
@@ -161,3 +153,4 @@ int inFile ( char * token , FILE * file )
 	}
 	return 1; // token not in file
 }
+
