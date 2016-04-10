@@ -6,9 +6,7 @@ import itertools
 cgitb.enable()
 
 print "Content-type: text/html\n\n"
-print
-print 
-	
+# the big string below generates the webpage	
 string = """<!DOCTYPE html>
 		<html>
 		<head>
@@ -32,6 +30,7 @@ with open ( "users.txt" , "r" ) as users: # opens file, reads and prints four li
 print """
 				<input type=\"submit\" value=\"addfriend\"> 
 			</form>
+			<a href="https://cgi.cs.mcgill.ca/~yzhu399/dashboard.py">To Dashboard</a>
 			</center>
 		</body>
 		</html> 
