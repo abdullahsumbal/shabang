@@ -62,7 +62,7 @@ int main ( int argc , char * argv )
 				toAdd = fopen ( "../users.txt" , "a" ); // PARENT DIR
 				// need to change '\0' to '\n' so fputs formats file correctly
 				token[tIndex] = '\n'; // NOTE that it was '\0' for inFile function
-				fputs ( token , toAdd ); 
+				fputs ( token , toAdd ); // WHY DID THIS WORK?? I tried it on a hunch but don't totally understand
 				fclose ( toAdd ); // close file we just wrote to	
 			}	
 		}

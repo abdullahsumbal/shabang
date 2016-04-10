@@ -1,10 +1,8 @@
 #!/usr/bin/python
 
-import urllib, os
+import urllib
 
 user = 'bob'
-os.system("touch status.txt")
-
 f = open("status.txt", "r")
 lines = f.readlines()
 f.close()
@@ -18,6 +16,7 @@ print "<title> Dashboard </title>"
 print "</head>"
 print '<body bgcolor="white" text="black">'
 print ' <a href="http://www.cs.mcgill.ca/~eander40/makefriends.py">Make Friends</a>'
+print ' <a href="http://www.cs.mcgill.ca/~msumba/seefriend/seefriend.cgi">See Friends</a>'
 print ' <a href="http://www.cs.mcgill.ca/~eander40">Logout</a>'
 print "<h1> Dashboard </h1>"
 print'	<form name="input" action="status.py" method="get">'

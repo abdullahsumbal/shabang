@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Login page</title>
+	<style>
+		p.big {
+		    line-height: 150%;
+		}
+</style>
+</head>
+<body>
+	<!-- login and register sections -->
+	<center><h2>Login/Register page</h2></center>
+
+	<table border="0" style="width:100%">
+
+	<!-- the fist row -->
+	<tr ><th>Login</th><th colspan="2">Register</th></tr>
+
+	<!-- first column login -->
+	<tr>
+	<td>
+	<center>
+		<form name="input" action="http://cgi.cs.mcgill.ca/~msumba/public_html/seefriend/dashboard.py" method="get">
+			<b>Username: <input type="text" name="user"> <br />
+			<b>Password : <input type="text" name="password"> <br />
+			<input type="submit" value="Login">
+		</form>
+	</center>
+	</td>
+
+	<!-- second column register -->
+		<td align="right" >
+		<p class="big">
+			<b>Username: <br />
+			<b>Full Name: <br />
+			<b>Job Description: <br />
+			<b>Password: <br />
+		</p>
+		</td>
+		<td align="left">
+			<form name="input" action="" method="get">
+				<b>   <br />
+				<b><input type="text" name="user"> <br />
+				<b><input type="text" name="fullname"> <br />
+				<b><input type="text" name="job"> <br />
+				<b><input type="text" name="password"> <br />
+				<center><input type="submit" value="register"></center>
+			</form>
+		</td>
+	</tr>
+	
+
+		
+	</table>
+
+</body>
+</html>
