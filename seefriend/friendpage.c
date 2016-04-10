@@ -18,6 +18,9 @@ int main(int argc, char* argv[]){
     printf("<html>" );
     printf("<title>Friends page </title>");
 
+    // - back to see friend page
+    printf("<a href = \"http://www.cs.mcgill.ca/~msumba/seefriend/seefriend.cgi\">See Friend page</a> <br/>");
+
     // - get the friends name
     char * data = getenv("QUERY_STRING");
     friendUserName = strtok( data, "+");

@@ -6,22 +6,38 @@
 
 #define BOOLEAN int
 #define SEEFRIENDS_FILE "friends.txt"
+#define CURRENTUSER_FILE "currentUser.txt"
 
 // - these values are examples
-char * username = "msumba";
+char username[50];
 
 int main(int argc, char* argv[]){
 
-	// - display message on screen 
- 	 printf("Content-Type:text/html\n\n");
-     printf("<html>" );
-     printf("<title>See Friends</title>");
-     printf("</html>");
-
+	printf("Content-Type:text/html\n\n");
 	// - local variable 
 	size_t length =256;
 	char * line =NULL;
 	char * current_token();
+
+	// - open current_user.txt
+	FILE *currentUser_file;
+	currentUser_file = fopen(CURRENTUSER_FILE, "r");
+	getline(&line, &length, (FILE*)currentUser_file);
+	//username = line;
+	strcpy (username, line);
+	username[strlen(username)-1]='\0';
+	//username
+	//username = "msumba";
+
+	fclose(currentUser_file);
+
+	// - display message on screen 
+ 	
+     printf("<html>" );
+     printf("<title>See Friends</title>");
+     
+
+
 
 	// - open friends.tct
 	FILE *file;
@@ -43,18 +59,24 @@ int main(int argc, char* argv[]){
 
        	// - find the user friends
        	if(strcmp(nextToken(),username) == 0){
+
        		printf("user %s friends are ",username);
+
        		printf("<form name=\"input\" action=\"http://cgi.cs.mcgill.ca/~msumba/seefriend/friendpage.cgi\" method=\"get\">");
+
        		while(hasNextToken()){
        			char * friend = nextToken();
        			printf(" <input type=\"radio\" name=\"friendusername\" value=\" %s \" checked> %s<br> ",friend, friend);
        		}
+
+
        		printf("<input type=\"submit\" value=\"See profile \">");
        		printf("</form>");
        	}
 
     
     }
+    printf("</html>");
 
 	return 0;
 
