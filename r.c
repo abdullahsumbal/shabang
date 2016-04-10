@@ -7,10 +7,11 @@ int main ( int argc , char * argv )
 {
 	// let browser know we will write html
 	printf ( "Content-Type: text/html\n\n" );
-	printf ( "<!DOCTYPE html><html><body><h1>hey</h1>" );
 	
 //	Gets the form data from the shell var QUERY_STRING 
-//	char * data = getenv ( "QUERY_STRING" );
+	char * data = getenv ( "QUERY_STRING" );
+
+
 	
 	// so just use one string and check it against the file users.txt
 	// loop through form and check that current string ie token is not present in the file
@@ -19,41 +20,46 @@ int main ( int argc , char * argv )
 	// open file
 	FILE * users;
 	FILE * toAdd; // pointer for appending
-	users = fopen ( "users.txt" , "r" ); // r for read. a for append
+	users = fopen ( "../users.txt" , "r" ); // r for read. a for append. PARENT DIR
 	
-	char * data = "user=eander40&password=word&fullname=ERic+And";
+
+	// need length of string to know howlong to loop for
+	int length = strlen ( data );
 	char token[50]; // will contain the string from one of the 4 fields. always terminates with '\0' because of resetToken function
 	resetToken ( token , 50 );
 
 	int i = 0; // counter for index in while
 	int isToken = 1; // flag for a token
 	int tIndex = 0; // counter for index in token
-	while ( data[i] != '\0' ) // stops at end of string. 
+	while ( i <= ( length + 1 )) // stops at end of string +1 because we need a final loop to check the last token. +1 includes the '\0'
 	{
 		if ( data[i] == '=' ) // reached field input
 		{
 			isToken = 0;
 			tIndex = 0;
 		}
-		else if ( data[i] == '&' )
+		else if (( data[i] == '&' ) || ( data [i] == '\0' )) // field entry ended at & or end of string
 		{
-			printf ( "%s\n" , token);
 			isToken = 1; // reached end of field input. by field input I mean what the user entered in the text box in the form
 			token[tIndex] = '\0'; // terminate token
 			// Now we check if the token is in the file
 			// if in file
-				// display error
-			//else
-				// write to users.txt
-			if ( inFile ( token , users ) == 0 )
+			if ( inFile ( token , users ) == 0 ) 		
 			{
-
+				//display error
+				FILE * registrationError = fopen ( "../registerError.html" , "r" ); // html is in parent dir!!!
+				char c = getc ( registrationError );
+				while ( c != EOF )
+				{
+					putchar ( c ); // write each char from file to client browser
+					c = fgetc ( registrationError ); // get the next character
+				}
+				return 0; // break program
 			}
 			else // append to file. We can append the tokens in order because thats the order we read them in. uname|passw|fulln|jobdes
 			{
 				// append to file with puts?
-				printf ( "writing token : %s to file \n" , token );
-				toAdd = fopen ( "users.txt" , "a" );
+				toAdd = fopen ( "../users.txt" , "a" ); // PARENT DIR
 				// need to change '\0' to '\n' so fputs formats file correctly
 				token[tIndex] = '\n'; // NOTE that it was '\0' for inFile function
 				fputs ( token , toAdd ); 
@@ -69,16 +75,25 @@ int main ( int argc , char * argv )
 		{
 			resetToken( token , 50 ); // populates token array with '\0'
 		}
-			
-		i ++;
+		i ++; // index to loop through data
 	}	
-	// need to check the last token
-	
-	printf ( "</body></html>" );
+
+	// if we make it through the above while that means we appended to the users.txt file
+	// now we display the success html page	
+	FILE * registrationSuccess;
+	registrationSuccess = fopen ( "../registerSuccess.html" , "r" ); // html file is above dir where cgi runs......!!!
+	if ( registrationSuccess == NULL )
+		printf ( "<h1>ERROR</h1>" );
+	int c = fgetc ( registrationSuccess );
+	while ( c != EOF )
+	{
+		printf ( "%c" , c ); // write each char from file to client browser
+		c = fgetc ( registrationSuccess ); // get the next character
+	}
 	return 0;
 }
 
-// function to take an array an make every index '\0'
+// function to take an array an make every index '\0'void
 void resetToken ( char * input , int size )
 {
 	int i = 0 ;
@@ -104,20 +119,17 @@ int inFile ( char * token , FILE * file )
 	int bCounter = 0; // bufferCounter index
 	while ( c != EOF )
 	{
-		if (( c > 32 ) && ( c < 123 ))
+		if (( c > 32 ) && ( c < 123 )) // read words into buffer
 		{
 			buffer[bCounter] = c;	
 			bCounter ++;
 		}
-		else // terminate buffer
+		else // terminate buffer and compare token to buffer
 		{
 			buffer[bCounter] = '\0'; // already at next index since bCounter ++ at last valid char
-			printf ( "%s\n" , buffer );
-//-----------compare now that buffer full------------------//
-			printf ( " compare: %s with: %s \n" , token , buffer );
+			//-----------compare now that buffer full------------------//
 			if ( strcmp ( token , buffer ) == 0 )
 			{
-				printf ( "matched" );
 				return 0;	
 			}
 
