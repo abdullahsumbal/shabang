@@ -4,8 +4,8 @@
 #include <ctype.h>
 #include "parse.h"
 #define USERS_TXT "users.txt"
-#define STATUS_TXT "status.txt"
-
+#define STATUS_TXT "/home/2015/yzhu399/public_html/status.txt"
+//#define STATUS_TXT "status.txt"
 
 int main(int argc, char* argv[]){
 
@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){
     printf("<title>Friends page </title>");
 
     // - back to see friend page
-    printf("<a href = \"http://www.cs.mcgill.ca/~msumba/seefriend/seefriend.cgi\">See Friend page</a> <br/>");
+    printf("<a href = \"http://www.cs.mcgill.ca/~eander40/seefriend.cgi\">See Friend page</a> <br/>");
 
     // - get the friends name
     char * data = getenv("QUERY_STRING");
@@ -72,14 +72,23 @@ int main(int argc, char* argv[]){
 
     // - finding user name in status.txt file
     while ((readStatus = getline(&line, &length, (FILE*)statusFile)) != -1) {
-
        	initBuffer(line);
-       	if(strcmp(nextToken(),friendUserName) == 0){
+	char * current_Token = nextToken(); 
+	if ( NULL != ( strstr ( line , friendUserName )))
+	{
+		printf ( " %s\n<br> " , line );
+		
+	}
+/*
+//	printf ( "%s<br>\n" , friendUserName );
+	//printf ( " length current_Token %d : %s <br> " , strlen ( current_Token ) , current_Token );	
+//	printf ( "username Length %d : %s <br> " , strlen ( friendUserName ) , friendUserName );
+       	if(strcmp(current_Token,friendUserName) == 0){
        		char * status = strstr(line, " ");
        		printf("status :%s <br/>",status);
 
        	}
-
+*/
     }
     fclose(statusFile);
 

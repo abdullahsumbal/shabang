@@ -11,7 +11,7 @@ string = """<!DOCTYPE html>
 		<html>
 		<head>
 		</head>
-		<body>
+		<body style="background-color:#CA8E45">
 			<center>
 				<h1>Make Friends</h1>
 			<form action="http://cgi.cs.mcgill.ca/~eander40/newfriends.py" method="gets">	

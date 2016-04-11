@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
 	getline(&line, &length, (FILE*)currentUser_file);
 	//username = line;
 	strcpy (username, line);
-	username[strlen(username)-1]='\0';
+//	username[strlen(username)-1]='\0';
 	//username
 	//username = "msumba";
 
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]){
 
        		printf("user %s friends are ",username);
 
-       		printf("<form name=\"input\" action=\"http://cgi.cs.mcgill.ca/~msumba/seefriend/friendpage.cgi\" method=\"get\">");
+       		printf("<form name=\"input\" action=\"http://cgi.cs.mcgill.ca/~eander40/friendpage.cgi\" method=\"get\">");
 
        		while(hasNextToken()){
        			char * friend = nextToken();
