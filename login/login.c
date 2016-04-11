@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[])
+{
 
-    char *username = "abc\n";
-    char *password = "password\n";
+/*    char *username = "eander40\n";
+    char *password = "pword\n";
 
     int check_password = 0;
     int lineNo = 0;
@@ -22,9 +23,7 @@ int main(int argc, char *argv[]){
     if(!file)
     {
         
-        printf("The following file can not be found \n");
-        printf("Correct Format :  ./a.out [file_name or path/file_name]\n");
-        return 1;
+        system("touch currentUser.txt");
     }
   
     while ((read = getline(&line, &length, file)) != -1) 
@@ -72,6 +71,8 @@ int main(int argc, char *argv[]){
     }
 
     fclose(file);
-
-    return 0;
+*/
+    printf("Content-Type: text/plain\n\n");
+    printf("Hello World");
+    return 1; 
 }
