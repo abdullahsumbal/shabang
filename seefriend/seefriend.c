@@ -34,6 +34,7 @@ int main(int argc, char* argv[]){
 	// - display message on screen 
  	
      printf("<html>" );
+	printf ( "<body style=\"background-color:#CA8E45\">" );
      printf("<title>See Friends</title>");
      
 
@@ -76,7 +77,7 @@ int main(int argc, char* argv[]){
 
     
     }
-    printf("</html>");
+    printf("</body></html>");
 
 	return 0;
 

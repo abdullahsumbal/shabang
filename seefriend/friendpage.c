@@ -15,7 +15,7 @@ int main(int argc, char* argv[]){
 	char * line =NULL;
 
 	printf("Content-Type:text/html\n\n");
-    printf("<html>" );
+    printf("<html><body style=\"background-color: #CA8E45\">" );
     printf("<title>Friends page </title>");
 
     // - back to see friend page
@@ -93,7 +93,7 @@ int main(int argc, char* argv[]){
     fclose(statusFile);
 
 
-    printf("</html>");
+    printf("</body></html>");
 
      return 0;
 
