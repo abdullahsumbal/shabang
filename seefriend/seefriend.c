@@ -77,6 +77,7 @@ int main(int argc, char* argv[]){
 
     
     }
+	printf ( "<a href=\"https://cgi.cs.mcgill.ca/~yzhu399/dashboard.py\">To Dashboard</a>" );
     printf("</body></html>");
 
 	return 0;
