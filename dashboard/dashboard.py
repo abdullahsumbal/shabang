@@ -20,9 +20,10 @@ print "<html>"
 print "<head>"
 print "<title> Dashboard </title>"
 print "</head>"
-print '<body bgcolor="#E9E9BQ" text="black">'
+print '<body bgcolor="#CA8E45" text="black">'
+print' <center>'
 print ' <a href="http://www.cs.mcgill.ca/~eander40/makefriends.py">Make Friends</a>'
-print ' <a href="http://www.cs.mcgill.ca/~msumba/seefriend/seefriend.cgi">See Friends</a>'
+print ' <a href="http://www.cs.mcgill.ca/~eander40/seefriend.cgi">See Friends</a>'
 print ' <a href="http://www.cs.mcgill.ca/~eander40">Logout</a>'
 print "<h1> Dashboard </h1>"
 print'	<form name="input" action="status.py" method="get">'
@@ -58,6 +59,6 @@ for status in lines:
 	if status.partition(' ')[0] in friends:
 		print status + "<br>"
 		counter = counter + 1
-
+print "</center"
 print "</body>"
 print "</html>"

@@ -6,7 +6,7 @@ form = cgi.FieldStorage()
 #figure out a way to get the username
 status = form.getvalue('status')
 
-user = urllib.urlopen("http://www.cs.mcgill.ca/~eander40/currentUser.txt")
+user = urllib.urlopen("http://cgi.cs.mcgill.ca/~eander40/currentUser.txt")
 
 print "Content-type: text/html\n\n"
 print ' <a href="http://www.cs.mcgill.ca/~yzhu399/dashboard.py">Back to Dashboard</a>'
