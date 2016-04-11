@@ -56,13 +56,15 @@ int main(int argc, char *argv[])
 				//display success
 				// redirect them to dashboard
 				// write to currentUser.txt
-				printf ( " token is : %s \n" , token );
-				printf ( " and is in file users.txt\n" );	
+				//printf ( " token is : %s \n" , token );
+			//	printf ( " and is in file users.txt\n" );	
 				if ( validCred == 2 )
 				{	
 					FILE * currentUser = fopen ( "../currentUser.txt" , "w" );
 					fprintf ( currentUser , online );
+					printf ( "<!DOCTYPE html><html><body style=\"background-color:#CA8E45\">" );
 					printf ( "<h3><a href=\"%s\">MyDashboard</a></h3>" , dashUrl );
+					printf ( "</body></html>" );
 					return 0; // successful login
 				}
 				else if ( validCred == 1 ) // store the username in online

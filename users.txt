@@ -6,3 +6,8 @@ msumba
 pw1
 Muhammad+Abdullah+Sumbal
 login.c+Engineer
+bug
+bugword
+caterpillar
+eatleaf
+asdf
